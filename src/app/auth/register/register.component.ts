@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { RegisterRequestDTO } from 'src/app/models/dtos/register-request-dto';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,8 @@ export class RegisterComponent {
       return;
     }
 
-    this.authService.register(this.registerForm.value).subscribe(
+    const registerRequest: RegisterRequestDTO = this.registerForm.value;
+    this.authService.register(registerRequest).subscribe(
       response => {
         this.router.navigate(['/login']);
       },

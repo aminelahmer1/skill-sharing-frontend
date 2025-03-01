@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { LoginRequestDTO } from 'src/app/models/dtos/login-request-dto';
 
 @Component({
   selector: 'app-login',
@@ -8,14 +9,13 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  loginRequest: LoginRequestDTO = { email: '', password: '' };
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    this.authService.login(this.email, this.password).subscribe(
+    this.authService.login(this.loginRequest).subscribe(
       response => {
         localStorage.setItem('token', response.token);
         const role = this.authService.getRole();
